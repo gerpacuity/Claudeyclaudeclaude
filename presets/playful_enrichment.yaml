@@ -1,0 +1,9 @@
+name: playful_enrichment
+description: "Active enrichment for bored dogs. Bouncing shapes and nature sounds."
+mood: engaged
+duration: "4h"
+unique_segment: "20m"
+resolution: "1080p"
+volume: 0.3
+scenes: "bouncing_shapes,floating_orbs,gradient_sweep,bouncing_shapes"
+audio: "nature_ambience,calming_drone"

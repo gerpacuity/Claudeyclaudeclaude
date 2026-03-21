@@ -1,0 +1,9 @@
+name: calming_sleep
+description: "Deep relaxation for anxious dogs or bedtime. Slow motion, blue tones, heartbeat audio."
+mood: deep_calm
+duration: "10h"
+unique_segment: "20m"
+resolution: "1080p"
+volume: 0.2
+scenes: "lava_lamp,starfield,wave_pattern,gradient_sweep"
+audio: "heartbeat_rhythm,calming_drone"

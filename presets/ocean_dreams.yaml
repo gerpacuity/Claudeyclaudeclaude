@@ -1,0 +1,9 @@
+name: ocean_dreams
+description: "Underwater-themed with wave patterns and ocean-like audio. Very calming."
+mood: deep_calm
+duration: "10h"
+unique_segment: "25m"
+resolution: "1080p"
+volume: 0.2
+scenes: "wave_pattern,lava_lamp,gradient_sweep"
+audio: "nature_ambience,binaural_relaxation"

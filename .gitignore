@@ -1,0 +1,15 @@
+output/
+*.mp4
+*.m4a
+*.jpg
+*.png
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+~/.dogvid/
+client_secrets.json
+youtube_token.json

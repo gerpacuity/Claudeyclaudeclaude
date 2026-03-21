@@ -1,0 +1,9 @@
+name: night_sky
+description: "Twinkling stars and gentle drones. Perfect for overnight calming."
+mood: deep_calm
+duration: "10h"
+unique_segment: "20m"
+resolution: "1080p"
+volume: 0.15
+scenes: "starfield,gradient_sweep,lava_lamp"
+audio: "calming_drone,binaural_relaxation"

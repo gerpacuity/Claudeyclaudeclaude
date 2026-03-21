@@ -1,0 +1,9 @@
+name: separation_anxiety
+description: "For dogs left home alone. Gentle visuals with nature sounds and heartbeat."
+mood: relaxed
+duration: "10h"
+unique_segment: "30m"
+resolution: "1080p"
+volume: 0.25
+scenes: "floating_orbs,wave_pattern,lava_lamp,gradient_sweep,starfield"
+audio: "nature_ambience,heartbeat_rhythm,calming_drone"
