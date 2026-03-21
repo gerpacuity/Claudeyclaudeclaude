@@ -21,7 +21,6 @@ from rich.panel import Panel
 from .pipeline import VideoProject, run_pipeline
 from .scenes import SCENE_GENERATORS
 from .audio import AUDIO_GENERATORS, get_audio_for_mood
-from .youtube import UploadConfig, upload_video, DEFAULT_TAGS
 from .science import (
     RESOLUTION_PRESETS,
     DOG_VISIBLE_COLORS,
@@ -157,6 +156,7 @@ def generate(name, preset, duration, unique, resolution, fps, mood, volume, outp
 @click.option("--tags", default=None, help="Comma-separated tags (adds to defaults)")
 def upload(video_path, title, description, privacy, thumbnail, credentials, playlist, tags):
     """Upload a video to YouTube."""
+    from .youtube import UploadConfig, upload_video, DEFAULT_TAGS
 
     tag_list = DEFAULT_TAGS.copy()
     if tags:

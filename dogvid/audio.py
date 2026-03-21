@@ -65,13 +65,13 @@ def generate_calming_drone(cfg: AudioConfig) -> list[str]:
         "-i", (
             f"sine=frequency={f2}:duration={cfg.duration_sec}:sample_rate={cfg.sample_rate},"
             f"volume={vol * 0.25},"
-            f"tremolo=f=0.07:d=0.2"
+            f"tremolo=f=0.1:d=0.2"
         ),
         "-f", "lavfi",
         "-i", (
             f"sine=frequency={f3}:duration={cfg.duration_sec}:sample_rate={cfg.sample_rate},"
             f"volume={vol * 0.15},"
-            f"tremolo=f=0.05:d=0.15"
+            f"tremolo=f=0.1:d=0.15"
         ),
         "-filter_complex", (
             f"[0:a][1:a][2:a]amix=inputs=3:duration=longest:normalize=0"
@@ -98,7 +98,7 @@ def generate_nature_ambience(cfg: AudioConfig) -> list[str]:
         "-i", (
             f"anoisesrc=color=brown:duration={cfg.duration_sec}"
             f":sample_rate={cfg.sample_rate}:amplitude={vol * 0.3},"
-            f"lowpass=f=800,tremolo=f=0.03:d=0.4"
+            f"lowpass=f=800,tremolo=f=0.1:d=0.4"
         ),
         # Pink noise — rain-like texture
         "-f", "lavfi",
@@ -106,7 +106,7 @@ def generate_nature_ambience(cfg: AudioConfig) -> list[str]:
             f"anoisesrc=color=pink:duration={cfg.duration_sec}"
             f":sample_rate={cfg.sample_rate}:amplitude={vol * 0.15},"
             f"bandpass=f=2000:width_type=o:w=2,"
-            f"tremolo=f=0.08:d=0.5"
+            f"tremolo=f=0.1:d=0.5"
         ),
         # Gentle high tone — distant bird-like
         "-f", "lavfi",
@@ -198,7 +198,7 @@ def generate_binaural_relaxation(cfg: AudioConfig) -> list[str]:
             f"sine=frequency={base_freq * 2}:duration={cfg.duration_sec}"
             f":sample_rate={cfg.sample_rate},"
             f"volume={vol * 0.08},"
-            f"tremolo=f=0.04:d=0.3"
+            f"tremolo=f=0.1:d=0.3"
         ),
         "-filter_complex", (
             f"[0:a][1:a][2:a]amix=inputs=3:duration=longest:normalize=0"
