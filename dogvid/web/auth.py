@@ -102,4 +102,6 @@ def google_callback():
 @login_required
 def logout():
     logout_user()
+    if current_app.config.get("DEV_MODE"):
+        return redirect(url_for("views.dashboard"))
     return redirect(url_for("auth.login"))

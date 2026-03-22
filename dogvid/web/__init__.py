@@ -46,6 +46,26 @@ def create_app():
     def load_user(user_id):
         return db.session.get(User, int(user_id))
 
+    # Dev mode: auto-login when Google OAuth is not configured
+    dev_mode = not app.config["GOOGLE_CLIENT_ID"]
+    app.config["DEV_MODE"] = dev_mode
+
+    if dev_mode:
+        @app.before_request
+        def _dev_auto_login():
+            from flask_login import current_user, login_user
+            if not current_user.is_authenticated:
+                user = User.query.filter_by(email="dev@localhost").first()
+                if not user:
+                    user = User(
+                        google_id="dev-local",
+                        email="dev@localhost",
+                        name="Local Developer",
+                    )
+                    db.session.add(user)
+                    db.session.commit()
+                login_user(user)
+
     # Register blueprints
     from .auth import auth_bp
     from .views import views_bp
