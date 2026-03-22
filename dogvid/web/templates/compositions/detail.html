@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}{{ comp.name }} — DogVid{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('compositions.index') }}">Videos</a></li>
+        <li class="breadcrumb-item active">{{ comp.name }}</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card border-0">
+            <div class="card-body">
+                <h1 class="h3 mb-3">
+                    <i class="bi bi-film"></i> {{ comp.name }}
+                </h1>
+
+                <!-- Video player -->
+                <div class="bg-dark rounded mb-3 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                    {% if comp.status == 'ready' and comp.file_path %}
+                    <video controls class="w-100 rounded" style="max-height: 500px;">
+                        <source src="{{ url_for('views.serve_media', filename='compositions/comp_' ~ comp.id ~ '.mp4') }}" type="video/mp4">
+                    </video>
+                    {% elif comp.status == 'rendering' %}
+                    <div class="text-center p-4">
+                        <div class="spinner-border text-primary mb-3" role="status"></div>
+                        <p class="text-muted mb-0">Rendering video...</p>
+                        <small class="text-muted">This can take a while for long videos.</small>
+                    </div>
+                    {% elif comp.status == 'failed' %}
+                    <div class="text-center p-4 text-danger">
+                        <i class="bi bi-exclamation-triangle display-3"></i>
+                        <p class="mt-2">Render failed</p>
+                    </div>
+                    {% else %}
+                    <div class="text-center p-4 text-muted">
+                        <i class="bi bi-film display-3"></i>
+                        <p class="mt-2">Draft — not yet rendered</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Scene timeline -->
+                <h5>Scene Sequence</h5>
+                {% if scene_items %}
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    {% for item in scene_items %}
+                    <a href="{{ url_for('elements.detail', element_id=item.element.id) }}"
+                       class="badge bg-primary text-decoration-none p-2">
+                        {{ item.element.generator_type.replace('_', ' ').title() }}
+                        <span class="opacity-75">({{ item.element.duration_display }})</span>
+                    </a>
+                    {% endfor %}
+                    <span class="badge bg-secondary p-2">
+                        <i class="bi bi-arrow-repeat"></i> loops to {{ comp.target_duration_display }}
+                    </span>
+                </div>
+                {% else %}
+                <p class="text-muted">No scene elements added.</p>
+                {% endif %}
+
+                <!-- Audio tracks -->
+                <h5>Audio Tracks</h5>
+                {% if audio_items %}
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    {% for item in audio_items %}
+                    <a href="{{ url_for('elements.detail', element_id=item.element.id) }}"
+                       class="badge bg-info text-decoration-none p-2">
+                        {{ item.element.generator_type.replace('_', ' ').title() }}
+                        <span class="opacity-75">({{ item.element.duration_display }})</span>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No audio elements — video only.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Info card -->
+        <div class="card border-0 bg-body-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Details</h5>
+                <table class="table table-sm table-borderless mb-0">
+                    <tr><td class="text-muted">Target Duration</td><td>{{ comp.target_duration_display }}</td></tr>
+                    <tr><td class="text-muted">Unique Segment</td><td>{{ comp.unique_duration_sec // 60 }}m {{ comp.unique_duration_sec % 60 }}s</td></tr>
+                    <tr><td class="text-muted">Mood</td><td>{{ comp.mood }}</td></tr>
+                    <tr><td class="text-muted">Volume</td><td>{{ comp.audio_volume }}</td></tr>
+                    <tr><td class="text-muted">Resolution</td><td>{{ comp.resolution }}</td></tr>
+                    <tr>
+                        <td class="text-muted">Status</td>
+                        <td>
+                            <span id="status-badge" class="badge bg-{{ 'success' if comp.status == 'ready' else 'warning' if comp.status == 'rendering' else 'secondary' if comp.status == 'draft' else 'danger' }}">
+                                {{ comp.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% if comp.youtube_id %}
+                    <tr><td class="text-muted">YouTube</td><td><a href="https://youtube.com/watch?v={{ comp.youtube_id }}" target="_blank">Watch</a></td></tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-flex flex-column gap-2">
+            {% if comp.status == 'draft' or comp.status == 'failed' %}
+            <form method="POST" action="{{ url_for('compositions.render', comp_id=comp.id) }}">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-play-circle"></i> Render Video
+                </button>
+            </form>
+            {% endif %}
+
+            {% if comp.status == 'ready' %}
+            <form method="POST" action="{{ url_for('compositions.render', comp_id=comp.id) }}">
+                <button type="submit" class="btn btn-outline-warning w-100">
+                    <i class="bi bi-arrow-clockwise"></i> Re-render
+                </button>
+            </form>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('compositions.delete', comp_id=comp.id) }}"
+                  onsubmit="return confirm('Delete this video?')">
+                <button type="submit" class="btn btn-outline-danger w-100">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if comp.status == 'rendering' %}
+<script>
+(function poll() {
+    setTimeout(() => {
+        fetch('{{ url_for("compositions.status", comp_id=comp.id) }}')
+            .then(r => r.json())
+            .then(data => {
+                if (data.status !== 'rendering') {
+                    location.reload();
+                } else {
+                    poll();
+                }
+            });
+    }, 5000);
+})();
+</script>
+{% endif %}
+{% endblock %}

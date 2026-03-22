@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Videos — DogVid{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Videos</h1>
+    <a href="{{ url_for('compositions.create') }}" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> New Video
+    </a>
+</div>
+
+{% if compositions %}
+<div class="row g-3">
+    {% for comp in compositions %}
+    <div class="col-sm-6 col-lg-4">
+        <a href="{{ url_for('compositions.detail', comp_id=comp.id) }}" class="card border-0 bg-body-secondary text-decoration-none h-100">
+            <div class="card-img-top bg-dark d-flex align-items-center justify-content-center" style="height: 160px;">
+                {% if comp.thumbnail_path %}
+                <img src="{{ url_for('views.serve_media', filename='thumbnails/comp_' ~ comp.id ~ '.jpg') }}"
+                     class="w-100 h-100" style="object-fit: cover;" alt="">
+                {% else %}
+                <i class="bi bi-film display-3 text-muted opacity-25"></i>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h6 class="card-title">{{ comp.name }}</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        {{ comp.target_duration_display }} &middot; {{ comp.items|length }} elements
+                    </small>
+                    <span class="badge bg-{{ 'success' if comp.status == 'ready' else 'warning' if comp.status == 'rendering' else 'secondary' if comp.status == 'draft' else 'danger' }}">
+                        {{ comp.status }}
+                    </span>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="text-center text-muted py-5">
+    <i class="bi bi-film display-1"></i>
+    <h4 class="mt-3">No videos yet</h4>
+    <p>Compose elements into full-length looping videos for your dog.</p>
+    <a href="{{ url_for('compositions.create') }}" class="btn btn-primary btn-lg">Create Your First Video</a>
+</div>
+{% endif %}
+{% endblock %}

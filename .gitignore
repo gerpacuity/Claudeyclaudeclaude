@@ -11,5 +11,6 @@ build/
 .eggs/
 *.egg
 ~/.dogvid/
+*.db
 client_secrets.json
 youtube_token.json

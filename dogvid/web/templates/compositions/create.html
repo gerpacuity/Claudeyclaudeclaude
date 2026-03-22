@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}Create Video — DogVid{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('compositions.index') }}">Videos</a></li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+</nav>
+
+<h1 class="h3 mb-4">Create Video</h1>
+
+{% if not scene_elements and not audio_elements %}
+<div class="alert alert-warning">
+    <i class="bi bi-exclamation-triangle"></i>
+    No ready elements found. <a href="{{ url_for('elements.create') }}">Create some elements</a> first.
+</div>
+{% endif %}
+
+<form method="POST">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <!-- Scene elements -->
+            <div class="card border-0 bg-body-secondary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="bi bi-eye-fill text-primary"></i> Select Scene Elements
+                    </h5>
+                    <p class="text-muted small">Pick scenes to include. They'll play in order, then loop to fill the target duration.</p>
+
+                    {% if scene_elements %}
+                    <div class="row g-2" id="scene-picker">
+                        {% for el in scene_elements %}
+                        <div class="col-sm-6 col-md-4">
+                            <label class="card border-0 bg-body-tertiary p-2 d-flex align-items-start gap-2 cursor-pointer element-pick">
+                                <input type="checkbox" name="element_ids" value="{{ el.id }}" class="form-check-input mt-1">
+                                <div>
+                                    <strong class="small">{{ el.name }}</strong>
+                                    <br><span class="badge bg-primary badge-sm">{{ el.generator_type }}</span>
+                                    <span class="text-muted small">{{ el.duration_display }}</span>
+                                </div>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No scene elements ready. <a href="{{ url_for('elements.create') }}">Create one</a>.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Audio elements -->
+            <div class="card border-0 bg-body-secondary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="bi bi-music-note-beamed text-info"></i> Select Audio Elements
+                    </h5>
+                    <p class="text-muted small">Pick audio tracks to mix together as the soundtrack.</p>
+
+                    {% if audio_elements %}
+                    <div class="row g-2">
+                        {% for el in audio_elements %}
+                        <div class="col-sm-6 col-md-4">
+                            <label class="card border-0 bg-body-tertiary p-2 d-flex align-items-start gap-2 cursor-pointer element-pick">
+                                <input type="checkbox" name="element_ids" value="{{ el.id }}" class="form-check-input mt-1">
+                                <div>
+                                    <strong class="small">{{ el.name }}</strong>
+                                    <br><span class="badge bg-info badge-sm">{{ el.generator_type }}</span>
+                                    <span class="text-muted small">{{ el.duration_display }}</span>
+                                </div>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No audio elements ready. <a href="{{ url_for('elements.create') }}">Create one</a>.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 bg-body-secondary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Video Settings</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Video Name</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="e.g. Calming Night Video" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="target_duration">Target Duration</label>
+                        <select class="form-select" id="target_duration" name="target_duration">
+                            <option value="1800">30 minutes</option>
+                            <option value="3600">1 hour</option>
+                            <option value="7200">2 hours</option>
+                            <option value="14400">4 hours</option>
+                            <option value="28800">8 hours</option>
+                            <option value="36000" selected>10 hours</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="mood">Mood</label>
+                        <select class="form-select" id="mood" name="mood">
+                            <option value="deep_calm">Deep Calm</option>
+                            <option value="relaxed" selected>Relaxed</option>
+                            <option value="engaged">Engaged</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="volume">Audio Volume: <span id="vol-display">0.3</span></label>
+                        <input type="range" class="form-range" id="volume" name="volume"
+                               min="0.1" max="0.5" step="0.05" value="0.3">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="resolution">Resolution</label>
+                        <select class="form-select" id="resolution" name="resolution">
+                            {% for res in resolutions %}
+                            <option value="{{ res }}" {{ 'selected' if res == '1080p' }}>{{ res }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="bg-body-tertiary rounded p-3 mb-3">
+                        <small class="text-muted">
+                            <i class="bi bi-info-circle"></i>
+                            Selected scenes play in sequence, then the whole segment loops
+                            to fill the target duration. Audio gets mixed and looped alongside.
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 btn-lg"
+                            {% if not scene_elements %}disabled{% endif %}>
+                        <i class="bi bi-film"></i> Create Video
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('volume').addEventListener('input', e => {
+    document.getElementById('vol-display').textContent = e.target.value;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Create Element — DogVid{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('elements.index') }}">Elements</a></li>
+        <li class="breadcrumb-item active">Create</li>
+    </ol>
+</nav>
+
+<h1 class="h3 mb-4">Create Element</h1>
+
+<form method="POST" id="create-form">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <!-- Type Selection -->
+            <div class="card border-0 bg-body-secondary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Element Type</h5>
+                    <div class="btn-group w-100 mb-3" role="group">
+                        <input type="radio" class="btn-check" name="element_type" id="type-scene" value="scene" checked>
+                        <label class="btn btn-outline-primary" for="type-scene">
+                            <i class="bi bi-eye-fill"></i> Scene (Video)
+                        </label>
+                        <input type="radio" class="btn-check" name="element_type" id="type-audio" value="audio">
+                        <label class="btn btn-outline-info" for="type-audio">
+                            <i class="bi bi-music-note-beamed"></i> Audio
+                        </label>
+                    </div>
+
+                    <!-- Scene generators -->
+                    <div id="scene-generators">
+                        <label class="form-label">Scene Generator</label>
+                        <div class="row g-2">
+                            {% for gen_name in scene_generators %}
+                            <div class="col-sm-6">
+                                <div class="form-check card border-0 bg-body-tertiary p-3">
+                                    <input class="form-check-input" type="radio" name="generator_type"
+                                           value="{{ gen_name }}" id="gen-{{ gen_name }}"
+                                           {{ 'checked' if loop.first }}>
+                                    <label class="form-check-label w-100" for="gen-{{ gen_name }}">
+                                        <strong>{{ gen_name.replace('_', ' ').title() }}</strong>
+                                        <br><small class="text-muted">{{ scene_descriptions.get(gen_name, '') }}</small>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Audio generators -->
+                    <div id="audio-generators" style="display: none;">
+                        <label class="form-label">Audio Generator</label>
+                        <div class="row g-2">
+                            {% for gen_name in audio_generators %}
+                            <div class="col-sm-6">
+                                <div class="form-check card border-0 bg-body-tertiary p-3">
+                                    <input class="form-check-input" type="radio" name="generator_type"
+                                           value="{{ gen_name }}" id="gen-{{ gen_name }}">
+                                    <label class="form-check-label w-100" for="gen-{{ gen_name }}">
+                                        <strong>{{ gen_name.replace('_', ' ').title() }}</strong>
+                                        <br><small class="text-muted">{{ audio_descriptions.get(gen_name, '') }}</small>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Settings -->
+            <div class="card border-0 bg-body-secondary mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Settings</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Name (optional)</label>
+                        <input type="text" class="form-control" id="name" name="name"
+                               placeholder="Auto-generated if blank">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="duration">Duration: <span id="dur-display">60s</span></label>
+                        <input type="range" class="form-range" id="duration" name="duration"
+                               min="30" max="90" value="60" step="5">
+                    </div>
+
+                    <div class="mb-3" id="resolution-group">
+                        <label class="form-label" for="resolution">Resolution</label>
+                        <select class="form-select" id="resolution" name="resolution">
+                            {% for res in resolutions %}
+                            <option value="{{ res }}" {{ 'selected' if res == '1080p' }}>{{ res }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="mood-group">
+                        <label class="form-label" for="mood">Mood</label>
+                        <select class="form-select" id="mood" name="mood">
+                            <option value="deep_calm">Deep Calm</option>
+                            <option value="relaxed" selected>Relaxed</option>
+                            <option value="engaged">Engaged</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 btn-lg">
+                        <i class="bi bi-play-circle"></i> Create & Render
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelectorAll('input[name="element_type"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        const isScene = radio.value === 'scene';
+        document.getElementById('scene-generators').style.display = isScene ? '' : 'none';
+        document.getElementById('audio-generators').style.display = isScene ? 'none' : '';
+        document.getElementById('resolution-group').style.display = isScene ? '' : 'none';
+        // Select first generator of the chosen type
+        const container = isScene ? 'scene-generators' : 'audio-generators';
+        const first = document.querySelector(`#${container} input[type="radio"]`);
+        if (first) first.checked = true;
+    });
+});
+
+document.getElementById('duration').addEventListener('input', e => {
+    document.getElementById('dur-display').textContent = e.target.value + 's';
+});
+</script>
+{% endblock %}

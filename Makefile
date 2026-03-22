@@ -1,4 +1,4 @@
-.PHONY: install preview generate upload clean help
+.PHONY: install preview generate upload clean help web
 
 help:
 	@echo "DogVid — Automated Dog Video Generator"
@@ -9,6 +9,7 @@ help:
 	@echo "  make generate      Generate a full 10-hour video (calming_sleep preset)"
 	@echo "  make upload        Upload the latest video to YouTube"
 	@echo "  make list          List available presets and scenes"
+	@echo "  make web           Start the web UI (http://localhost:5000)"
 	@echo "  make clean         Remove generated output files"
 	@echo ""
 	@echo "Custom generation:"
@@ -39,6 +40,9 @@ list:
 	dogvid list-audio
 	@echo ""
 	dogvid list-presets
+
+web:
+	python -m dogvid.web.run
 
 clean:
 	rm -rf output/

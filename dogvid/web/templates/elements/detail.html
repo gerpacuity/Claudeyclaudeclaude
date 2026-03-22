@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}{{ element.name }} — DogVid{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('elements.index') }}">Elements</a></li>
+        <li class="breadcrumb-item active">{{ element.name }}</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card border-0">
+            <div class="card-body">
+                <h1 class="h3 mb-3">
+                    <i class="bi {{ 'bi-eye-fill text-primary' if element.element_type == 'scene' else 'bi-music-note-beamed text-info' }}"></i>
+                    {{ element.name }}
+                </h1>
+
+                <!-- Preview -->
+                <div id="preview-area" class="bg-dark rounded mb-3 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                    {% if element.status == 'ready' and element.file_exists %}
+                        {% if element.element_type == 'scene' %}
+                        <video controls class="w-100 rounded" style="max-height: 500px;">
+                            <source src="{{ url_for('views.serve_media', filename='elements/scenes/element_' ~ element.id ~ '.mp4') }}" type="video/mp4">
+                        </video>
+                        {% else %}
+                        <div class="text-center p-4">
+                            <i class="bi bi-music-note-beamed display-1 text-info mb-3"></i>
+                            <audio controls class="w-100">
+                                <source src="{{ url_for('views.serve_media', filename='elements/audio/element_' ~ element.id ~ '.m4a') }}" type="audio/mp4">
+                            </audio>
+                        </div>
+                        {% endif %}
+                    {% elif element.status == 'rendering' %}
+                        <div class="text-center p-4">
+                            <div class="spinner-border text-primary mb-3" role="status"></div>
+                            <p class="text-muted mb-0">Rendering...</p>
+                        </div>
+                    {% elif element.status == 'failed' %}
+                        <div class="text-center p-4 text-danger">
+                            <i class="bi bi-exclamation-triangle display-3"></i>
+                            <p class="mt-2">Render failed</p>
+                        </div>
+                    {% else %}
+                        <div class="text-center p-4 text-muted">
+                            <i class="bi bi-hourglass display-3"></i>
+                            <p class="mt-2">Pending render</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card border-0 bg-body-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Details</h5>
+                <table class="table table-sm table-borderless mb-0">
+                    <tr>
+                        <td class="text-muted">Type</td>
+                        <td>
+                            <span class="badge bg-{{ 'primary' if element.element_type == 'scene' else 'info' }}">
+                                {{ element.element_type }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Generator</td>
+                        <td>{{ element.generator_type.replace('_', ' ').title() }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Duration</td>
+                        <td>{{ element.duration_display }}</td>
+                    </tr>
+                    {% if element.element_type == 'scene' %}
+                    <tr>
+                        <td class="text-muted">Resolution</td>
+                        <td>{{ element.resolution }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td class="text-muted">Status</td>
+                        <td>
+                            <span id="status-badge" class="badge bg-{{ 'success' if element.status == 'ready' else 'warning' if element.status == 'rendering' else 'secondary' if element.status == 'pending' else 'danger' }}">
+                                {{ element.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">Created</td>
+                        <td>{{ element.created_at.strftime('%b %d, %Y %H:%M') if element.created_at else 'N/A' }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <form method="POST" action="{{ url_for('elements.rerender', element_id=element.id) }}">
+                <button type="submit" class="btn btn-outline-warning">
+                    <i class="bi bi-arrow-clockwise"></i> Re-render
+                </button>
+            </form>
+            <form method="POST" action="{{ url_for('elements.delete', element_id=element.id) }}"
+                  onsubmit="return confirm('Delete this element?')">
+                <button type="submit" class="btn btn-outline-danger">
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if element.status == 'rendering' %}
+<script>
+(function poll() {
+    setTimeout(() => {
+        fetch('{{ url_for("elements.status", element_id=element.id) }}')
+            .then(r => r.json())
+            .then(data => {
+                if (data.status !== 'rendering') {
+                    location.reload();
+                } else {
+                    poll();
+                }
+            });
+    }, 3000);
+})();
+</script>
+{% endif %}
+{% endblock %}

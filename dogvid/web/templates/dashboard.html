@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — DogVid{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Dashboard</h1>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('elements.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> New Element
+        </a>
+        <a href="{{ url_for('compositions.create') }}" class="btn btn-outline-primary">
+            <i class="bi bi-film"></i> New Video
+        </a>
+    </div>
+</div>
+
+<!-- Stats -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card border-0 bg-body-secondary">
+            <div class="card-body text-center">
+                <div class="h2 mb-0 text-primary">{{ scene_count }}</div>
+                <small class="text-muted">Scene Elements</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 bg-body-secondary">
+            <div class="card-body text-center">
+                <div class="h2 mb-0 text-info">{{ audio_count }}</div>
+                <small class="text-muted">Audio Elements</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 bg-body-secondary">
+            <div class="card-body text-center">
+                <div class="h2 mb-0 text-success">{{ ready_count }}</div>
+                <small class="text-muted">Ready</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 bg-body-secondary">
+            <div class="card-body text-center">
+                <div class="h2 mb-0 text-warning">{{ rendering_count }}</div>
+                <small class="text-muted">Rendering</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Recent Elements -->
+    <div class="col-lg-7">
+        <div class="card border-0">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <h2 class="h5 mb-0">Element Library</h2>
+                <a href="{{ url_for('elements.index') }}" class="btn btn-sm btn-outline-secondary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                {% if elements %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead><tr>
+                            <th>Name</th><th>Type</th><th>Duration</th><th>Status</th>
+                        </tr></thead>
+                        <tbody>
+                        {% for el in elements[:8] %}
+                        <tr class="cursor-pointer" onclick="location.href='{{ url_for('elements.detail', element_id=el.id) }}'">
+                            <td>
+                                <i class="bi {{ 'bi-eye-fill text-primary' if el.element_type == 'scene' else 'bi-music-note-beamed text-info' }}"></i>
+                                {{ el.name }}
+                            </td>
+                            <td><span class="badge bg-{{ 'primary' if el.element_type == 'scene' else 'info' }}">{{ el.generator_type }}</span></td>
+                            <td>{{ el.duration_display }}</td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if el.status == 'ready' else 'warning' if el.status == 'rendering' else 'secondary' if el.status == 'pending' else 'danger' }}">
+                                    {{ el.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="p-4 text-center text-muted">
+                    <i class="bi bi-puzzle display-4"></i>
+                    <p class="mt-2">No elements yet. Create your first scene or audio clip!</p>
+                    <a href="{{ url_for('elements.create') }}" class="btn btn-primary">Create Element</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Compositions -->
+    <div class="col-lg-5">
+        <div class="card border-0">
+            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                <h2 class="h5 mb-0">Videos</h2>
+                <a href="{{ url_for('compositions.index') }}" class="btn btn-sm btn-outline-secondary">View All</a>
+            </div>
+            <div class="card-body">
+                {% if compositions %}
+                <div class="list-group list-group-flush">
+                    {% for comp in compositions[:5] %}
+                    <a href="{{ url_for('compositions.detail', comp_id=comp.id) }}" class="list-group-item list-group-item-action bg-transparent">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ comp.name }}</strong>
+                            <span class="badge bg-{{ 'success' if comp.status == 'ready' else 'warning' if comp.status == 'rendering' else 'secondary' }}">
+                                {{ comp.status }}
+                            </span>
+                        </div>
+                        <small class="text-muted">
+                            {{ comp.target_duration_display }} &middot;
+                            {{ comp.items|length }} elements &middot;
+                            {{ comp.mood }}
+                        </small>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-film display-4"></i>
+                    <p class="mt-2">No videos yet. Compose elements into a video!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
