@@ -47,7 +47,7 @@ HIQA's remit has expanded substantially beyond its original 2007 mandate:
 | Regulatory Function | Scale |
 |---|---|
 | **Designated centres for older persons** (nursing homes) | ~580 registered centres |
-| **Designated centres for persons with disabilities** | ~1,400+ registered centres |
+| **Designated centres for persons with disabilities** | 1,655 centres with 9,246 residential places (end 2024) |
 | **Children's services** | Statutory children's residential centres, special care units, Oberstown |
 | **Public hospitals** | All public acute and community hospitals |
 | **Private hospitals** (from September 2024) | 23 additional hospitals (Patient Safety Act 2023) |
@@ -198,6 +198,8 @@ The HIQA CEO grading at Assistant Secretary was set at HIQA's establishment in 2
 
 **The role in 2026 bears little resemblance to the role as conceived in 2007.** The grade has simply not been reviewed to reflect the transformation.
 
+Notably, **HIQA's own Board identified this issue as early as 2018**, when Board minutes recorded that "with HIQA's expanding remit, an increase in remuneration should be considered" and that "salary would be an important factor in attracting suitably qualified candidates." The then-Chairperson Pat O'Mahony agreed to raise the issue with the appropriate parties. Despite this, no regrading has occurred in the intervening eight years, during which HIQA's remit has expanded further still.
+
 By contrast, bodies like the EPA, Tusla, CCPC, ComReg, and CRU have had their CEO grades set or adjusted at Deputy Secretary level, reflecting their scale and complexity. HIQA has been left behind despite comparable or greater growth in scope.
 
 ---
@@ -252,6 +254,10 @@ The incremental cost (~€25,000 - €49,000 per annum) is negligible in the con
 - [Ireland's Top Civil Servants - Irish Times](https://www.irishtimes.com/politics/2024/03/30/irelands-top-civil-servants-at-the-shoulder-of-government/)
 - [CEO Grading Framework - gov.ie](https://assets.gov.ie/25328/f10a21fb7a184a2b82b7b3d915ef7801.pdf)
 - [Review Body on Higher Remuneration Report No. 42](https://9thlevel.ie/wp-content/uploads/Higherremuneration.pdf)
+- [Independent Review Panel on Senior Civil Service Report 2023](https://scsa.ie/wp-content/uploads/2023/07/Independent-Review-Panel-on-SCS-Report.pdf)
+- [HIQA Board Minutes 2018 - CEO Remuneration Discussion](https://www.medicalindependent.ie/in-the-news/latest-news/hiqa-suggests-salary-rise-for-ceo-due-to-expanded-remit/)
+- [HIQA Braced for Expanded Role - Medical Independent](https://www.medicalindependent.ie/in-the-news/interviews/hiqa-braced-for-expanded-role-in-regulation/)
+- [TLAC - Top Level Appointments Committee](https://www.gov.ie/en/department-of-public-expenditure-infrastructure-public-service-reform-and-digitalisation/collections/top-level-appointments-committee-tlac/)
 
 ---
 
