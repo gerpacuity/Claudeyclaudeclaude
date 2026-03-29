@@ -89,7 +89,7 @@ The HIQA CEO role carries exceptional complexity and public accountability:
 
 ## 4. Benchmarking Against Comparable Domestic State Bodies
 
-### 4.1 Comparator Table
+### 4.1 Cross-Departmental Comparator Table
 
 | State Body | Head Title | Grade Equivalent | Staff | Budget | Regulatory Scope |
 |---|---|---|---|---|---|
@@ -100,10 +100,38 @@ The HIQA CEO role carries exceptional complexity and public accountability:
 | **ComReg** (Commission for Communications Regulation) | Chairperson/Commissioner | **Deputy Secretary** | **~250** | **~€30m** | Telecoms, broadcasting, postal regulation |
 | **CRU** (Commission for Regulation of Utilities) | Chairperson/Commissioner | **Deputy Secretary** | **~150** | **~€25m** | Energy, water, gas regulation |
 | **An Coimisiun Pleanala** | Chairperson | **Deputy Secretary+** | **~200** | **~€25m** | Planning appeals, strategic infrastructure |
-| **Mental Health Commission** | CEO | **Assistant Secretary** | **~80** | **~€14m** | Mental health service regulation, tribunals |
+| **Mental Health Commission** | CEO | **Assistant Secretary** | **~89** | **~€14m** | Mental health service regulation, tribunals, Decision Support Service |
 | **HSA** (Health & Safety Authority) | CEO | **Assistant Secretary** | **~200** | **~€25m** | Workplace health & safety regulation |
 
-### 4.2 Key Comparisons
+### 4.2 Bodies Under the Aegis of the Department of Health - Complete Comparison
+
+HIQA operates within a landscape of agencies under the Department of Health. The following table demonstrates that HIQA is by far the largest and most complex regulatory body under this Department, yet its CEO is graded no higher than the heads of significantly smaller bodies.
+
+| Body (Dept of Health) | Head Title | Grade Equivalent | Staff | Regulatory Scope |
+|---|---|---|---|---|
+| **HIQA** | CEO | **Assistant Secretary** | **417** | 2,000+ registered centres; all hospitals; HTA; home support (incoming) |
+| **HPRA** (Health Products Regulatory Authority) | CEO | **Assistant Secretary** | **~350** | Medicines, medical devices, clinical trials; EU regulatory role |
+| **FSAI** (Food Safety Authority of Ireland) | CEO | **Deputy Secretary*** | **~117** | Food safety standards and enforcement |
+| **Mental Health Commission** | CEO | **Assistant Secretary** | **~89** | Approved mental health centres; mental health tribunals; Decision Support Service |
+| **NMBI** (Nursing & Midwifery Board of Ireland) | CEO | **PO Higher** | **~70** | Registration/regulation of ~75,000 nurses and midwives |
+| **CORU** (Health & Social Care Professionals Council) | CEO/Registrar | **PO Higher** | **~96** | Registration of 12 health/social care professions (~30,000 registrants) |
+| **Medical Council** | CEO | **Asst Sec equivalent** | **~50** | Registration/regulation of ~24,000 doctors; fitness to practise |
+| **PSI** (Pharmaceutical Society of Ireland) | Registrar/Chief Officer | **PO Higher** | **~40** | Regulation of pharmacists (~7,500) and pharmacies |
+| **Health Insurance Authority** | CEO | **PO Higher** | **~25** | Private health insurance market regulation |
+| **PHECC** (Pre-Hospital Emergency Care Council) | CEO | **PO Higher** | **~20** | Standards for ambulance/pre-hospital care |
+| **National Cancer Registry** | Director | **PO Higher** | **~30** | Cancer data collection and research |
+
+*\*FSAI CEO Greg Dempsey was Deputy Secretary General at the Department of Health prior to appointment (January 2025). The FSAI has 106 permanent staff plus 11 agency staff - less than one-third of HIQA's headcount.*
+
+**Key observations from the Department of Health family:**
+
+1. **HIQA is the largest regulatory body** under the Department of Health by staff (417), budget (~€42m), and regulatory scope (2,000+ facilities)
+2. **HIQA has the broadest regulatory remit** - spanning nursing homes, disability services, children's services, all hospitals (public and private), health technology assessment, health information, and soon home support services
+3. **The FSAI CEO was recruited from a Deputy Secretary role** to lead a body with 117 staff. HIQA's CEO leads 417 staff at a lower grade
+4. **The HPRA is the only comparably-sized body** (~350 staff) and its CEO is also at Assistant Secretary - both should arguably be at Deputy Secretary
+5. **No other Department of Health body** comes close to HIQA's combination of scale, regulatory breadth, enforcement powers, and life-safety consequence
+
+### 4.3 Key Comparisons - Cross-Departmental
 
 #### HIQA vs Tusla (CEO at Deputy Secretary - €211,000)
 
@@ -210,6 +238,8 @@ By contrast, bodies like the EPA, Tusla, CCPC, ComReg, and CRU have had their CE
 |---|---|
 | **Comparable bodies at Deputy Secretary** | Tusla, EPA, CCPC, ComReg, CRU, An Coimisiun Pleanala - all at Deputy Secretary or above |
 | **HIQA staff and budget** | 417 WTE, ~€42m - exceeds CCPC, ComReg, CRU; comparable to EPA |
+| **Largest body under Dept of Health** | HIQA is the largest regulatory body under the Department of Health by staff, budget, and regulatory scope - yet its CEO is graded identically to heads of bodies one-quarter its size |
+| **FSAI precedent** | The FSAI (117 staff) recruited its CEO from a Deputy Secretary role; HIQA's CEO leads 3.5x more staff at a lower grade |
 | **Regulatory scope** | 2,000+ registered centres + all hospitals + home support (incoming) - **unmatched domestically** |
 | **Life-safety dimension** | Directly regulates care of the most vulnerable - nursing homes, hospitals, disability, children |
 | **Growth trajectory** | Continuous expansion since 2007; three major new functions imminent |
@@ -258,6 +288,17 @@ The incremental cost (~€25,000 - €49,000 per annum) is negligible in the con
 - [HIQA Board Minutes 2018 - CEO Remuneration Discussion](https://www.medicalindependent.ie/in-the-news/latest-news/hiqa-suggests-salary-rise-for-ceo-due-to-expanded-remit/)
 - [HIQA Braced for Expanded Role - Medical Independent](https://www.medicalindependent.ie/in-the-news/interviews/hiqa-braced-for-expanded-role-in-regulation/)
 - [TLAC - Top Level Appointments Committee](https://www.gov.ie/en/department-of-public-expenditure-infrastructure-public-service-reform-and-digitalisation/collections/top-level-appointments-committee-tlac/)
+- [Bodies Under the Aegis of the Department of Health - gov.ie](https://www.gov.ie/en/department-of-health/organisation-information/bodies-under-the-aegis-of-the-department-of-health/)
+- [FSAI New CEO Announcement - Greg Dempsey (Deputy Secretary)](https://www.fsai.ie/news-and-alerts/latest-news/new-chief-executive-for-the-food-safety-authority)
+- [FSAI Salary Scales](https://www.fsai.ie/freedom-of-information-publication-scheme/information-about-the-food-safety-authority-of-ire/pay-and-grading-structures/fsai-salary-scales)
+- [HPRA Annual Report 2024](https://assets.hpra.ie/data/docs/default-source/corporate/annual-reports/annual-report-2024.pdf)
+- [HPRA CEO Dr Lorraine Nolan Departure](https://www.hpra.ie/news-events/news/article/hpra-announces-chief-executive-dr-lorraine-nolan-to-step-down-from-her-role-in-december-2025)
+- [CORU CEO/Registrar Vacancy - Salary €125k-€151k](https://coru.ie/about-us/vacancies/ceo-registrar/)
+- [Mental Health Commission Annual Report 2024](https://www.mhcirl.ie/publications/mental-health-commission-annual-report-2024)
+- [NMBI Annual Report 2024](https://www.nmbi.ie/NMBI/media/NMBI/NMBI-Annual-Report-2024.pdf)
+- [NMBI Financial Statements 2024](https://www.nmbi.ie/NMBI/media/NMBI/NMBI-2024-Annual-Financial-Statements.pdf)
+- [Medical Council Ireland](https://www.medicalcouncil.ie/)
+- [PSI - Pharmaceutical Society of Ireland](https://www.psi.ie/)
 
 ---
 
